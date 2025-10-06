@@ -10,5 +10,6 @@ $routes->post('login', 'ControlAdmin::login');
 $routes->post('logout', 'ControlAdmin::logout');
 
 $routes->get('article/(:num)','ControlArticle::load/$1');
-$routes->get('seasons','ControlSeason::loadSeasons');
+$routes->get('league/(:num)', 'ControlLeague::load/$1');
+$routes->get('season','ControlSeason::loadSeasons');
 $routes->get('teams','ControlTeams');

@@ -1,4 +1,3 @@
-<!DOCTYPE html>
 <?= $this->extend('layout/template') ?>
 <?= $this->section('content') ?>
 
@@ -40,7 +39,7 @@
 
   <div class="article-container">
     <div class="article-photo">
-      <img src="<?php base_url('assets/article/'. $article->photo)?>" alt="Article Image">
+      <img src="<?php base_url('assets/articles/'. $article->photo)?>" alt=<?= base_url('assets/articles/'. $article->photo)?>>
     </div>
     <div class="article-body">
       <h1 class="article-title"><?php $article->title ?></h1>
@@ -51,4 +50,4 @@
   </div>
 
 </body>
-</html>
+

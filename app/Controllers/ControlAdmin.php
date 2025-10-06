@@ -21,16 +21,20 @@ class ControlAdmin extends BaseController
         $identity = $this->request->getPost('admin');
         $password = $this->request->getPost('password');
 
-       
+       /*
         if ($this->ionAuth->login($identity, $password)) {
             if ($this->ionAuth->login($identity, $password)) {
                 //$redirectUrl = session()->get('redirect_url') ?? '/'
                 $data = "Identity: "+$identity + " password: " + $password;
-                return view( 'LogSuc', $data);
+                //return view( 'LogSuc', $data);
+                var_dump($data);
             }
         }
 
-        return redirect()->back()->with('error', $this->ionAuth->errors() ?: 'Invalid login credentials.');
-       
+       */
+
+    }
+    public function logout(){
+        
     }
 }

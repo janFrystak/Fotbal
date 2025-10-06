@@ -32,7 +32,14 @@ class ControlSeason extends BaseController
         $page = (int) ($this->request->getVar('page') ?? 1);
         $rows= $this
         ->season
-        ->select('season.*, league.name AS league_name, league.level AS league_level')
+        ->select('
+        season.id AS season_id,
+        season.start,
+        season.finish,
+        league.id AS league_id,
+        league.name AS league_name,
+        league.logo AS league_logo,
+        league.level AS league_level')
         ->join('league_season', 'league_season.id_season = season.id')
         ->join('league', 'league.id = league_season.id_league')
         ->orderBy('season.start','DESC')
@@ -40,7 +47,7 @@ class ControlSeason extends BaseController
 
         $seasons = [];
         foreach($rows as $row){
-            $sid = $row['id'];
+            $sid = $row['season_id'];
 
             if (!isset($seasons[$sid])) {
                 $seasons[$sid] = [
@@ -52,9 +59,9 @@ class ControlSeason extends BaseController
             }
             $seasons[$sid]['leagues'][] = [
                 'id'=> $row['league_id'],
-                'name' => $row['name'],
-                'logo'=> $row['logo'],
-                'level'=> $row['level'],
+                'name' => $row['league_name'],
+                'logo'=> $row['league_logo'],
+                'level'=> $row['league_level'],
             ];
         }
         $seasons = array_values($seasons);
@@ -67,7 +74,7 @@ class ControlSeason extends BaseController
             'currentPage'=> $page,
             'totalPages'=> ceil($total/ $perPage)
         ];
-        
+        $data['navbar'] = $this->navbar->findAll();
         return view("Seasons", $data);
     }
 }

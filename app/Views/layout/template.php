@@ -38,12 +38,12 @@
                                     <div class="dropdown-menu dropdown-menu-end p-4" style="width: 300px;">
                                     <?php if($loggedIn): ?>
                                         <form class="d-inline" method = "post" action="<?= base_url('logout') ?>">
-                                            <button class="btn btn-danger w-100" type="submit" ">Logout</button>
+                                            <button class="btn btn-danger w-100" type="submit">Logout</button>
                                         </form>
                                             <button class="btn btn-primary w-100">Edit</button>
 
                                     <?php else: ?>
-                                        <form method="post" action="<? base_url('login')?>" class="d-inline">
+                                        <form method="post" action="<?= base_url('login')?>" class="d-inline">
                                             <div class="mb-3">
                                                 <label for="loginAdmin" class="form-label">Username</label>
                                                 <input type="text" class="form-control" name = "admin" id="admin" placeholder="admin">
@@ -66,7 +66,7 @@
             </div>
         </nav>
 
-
+       
         
     <div class="container">
         <?= $this->renderSection("content");?>
