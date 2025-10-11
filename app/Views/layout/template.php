@@ -9,11 +9,7 @@
 
     <body>
         
-        <?php 
-            $ionAuth = new \IonAuth\Libraries\IonAuth();
-            $loggedIn = $ionAuth->loggedIn();
-            $currentUser = $loggedIn ? $ionAuth->user()->row() : null;
-        ?>
+        
         
         
         <nav class="navbar navbar-expand-lg navbar-dark bg-dark mb-4">
@@ -36,6 +32,7 @@
                                         <?= $nav->title ?> 
                                     </a>
                                     <div class="dropdown-menu dropdown-menu-end p-4" style="width: 300px;">
+                                    
                                     <?php if($loggedIn): ?>
                                         <form class="d-inline" method = "post" action="<?= base_url('logout') ?>">
                                             <button class="btn btn-danger w-100" type="submit">Logout</button>
@@ -54,23 +51,33 @@
                                             </div>
                                             <button type="submit" class="btn btn-primary w-100">Sign in</button>
                                         </form>
+
+                                        <form method="post" action="<?= base_url('register')?>" class="d-inline">
+                                            <div class="mb-3">
+                                                <label for="loginAdmin" class="form-label">Username</label>
+                                                <input type="text" class="form-control" name = "identity" id="identity" placeholder="admin">
+                                            </div>
+                                            <div class="mb-3">
+                                                <label for="loginPassword" class="form-label">Password</label>
+                                                <input type="password" class="form-control" name = "password1" id="password1" placeholder="Password">
+                                            </div>
+                                            <button type="submit" class="btn btn-primary w-100">Register</button>
+                                        </form>
                                     <?php endif ?>
                                     </div>
                                 </li>
                             <?php endif ?>
                         <?php endforeach; ?>
-
+                                        
                       
                     </ul>
                 </div>
             </div>
         </nav>
-
-       
         
-    <div class="container">
-        <?= $this->renderSection("content");?>
-    </div>
+            <div class="container">
+                <?= $this->renderSection("content");?>
+            </div>
         
     </body>
 </html>

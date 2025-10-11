@@ -1,4 +1,3 @@
-
 <?= $this->extend('layout/template') ?>
 <?= $this->section('content') ?>
 
@@ -25,29 +24,10 @@
       border-top-left-radius: 16px;
       border-top-right-radius: 16px;
     }
-    .pagination li {
-  display: inline-block !important;
-    }
-  .page-item.active .page-link {
-  background-color: #0d6efd;
-  border-color: #0d6efd;
-  color: white;
-}
-.season-card .form-select {
-    padding: 0.5rem 1rem;          /* Add internal padding */
-    font-size: 1rem;               /* Make text readable */
-    border-radius: 12px;           /* Match card style */
-    border: 1px solid #ced4da;     /* Subtle border */
-    box-shadow: inset 0 1px 2px rgba(0,0,0,0.075); /* Slight inset shadow */
-    transition: all 0.15s ease;
-}
-
-
-   
-    
+ 
 </style>
 
-<title>Seasons</title>
+
 
 <div class="container py-5">
   <h1 class="mb-4 text-center">All Seasons</h1>
@@ -69,7 +49,7 @@
                       onchange="if(this.value) window.location.href=this.value;">
                 <option value="">Available leagues</option>
                 <?php foreach ($season['leagues'] as $league): ?>
-                  <option value="<?= base_url('league/' . $league['id']) ?>">
+                  <option value="<?= base_url('league/' . $season['id'] . '/'.  $league['id']) ?>">
                     <?= esc($league['name']) . " (Level: " . esc($league['level']) . ")" ?>
                   </option>
                 <?php endforeach; ?>
@@ -91,4 +71,6 @@
       </li>
     <?php endfor; ?>
   </ul>
+
 </nav>
+<?= $this->endSection() ?>

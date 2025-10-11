@@ -1,8 +1,8 @@
 <?= $this->extend('layout/template') ?>
 <?= $this->section('content') ?>
 
-
-
+<p><?= "logged in: ".var_dump($loggedIn). " | session: ".var_dump(session()->get()) ?></p>
+<h1><?= $currentUser ?></h1>
     <?php if(!empty($articles)): ?>
     <div class="row mt-4">
         <div class="col-12 col-md-6 mb-4">

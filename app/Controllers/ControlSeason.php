@@ -6,6 +6,7 @@ namespace App\Controllers;
 use App\Models\Navbar;
 use App\Models\Season;
 use App\Models\League;
+
 use App\Models\LeagueSeason;
 use App\Controllers\BaseController;
 use IonAuth\Libraries\IonAuth;
@@ -17,6 +18,7 @@ class ControlSeason extends BaseController
     var $season;
     var $league;
     var $league_season;
+    var  $auth;
      public function initController($request, $response, $logger)
     {
         parent::initController($request, $response, $logger);
@@ -24,6 +26,7 @@ class ControlSeason extends BaseController
         $this->season = new Season();
         $this->league = new League();
         $this->league_season = new LeagueSeason();
+        $this->auth = new IonAuth();
        
     }
     public function loadSeasons()
@@ -36,6 +39,7 @@ class ControlSeason extends BaseController
         season.id AS season_id,
         season.start,
         season.finish,
+        league_season.id As league_season_id,
         league.id AS league_id,
         league.name AS league_name,
         league.logo AS league_logo,
@@ -47,21 +51,22 @@ class ControlSeason extends BaseController
 
         $seasons = [];
         foreach($rows as $row){
-            $sid = $row['season_id'];
+            $sid = $row->season_id;
 
             if (!isset($seasons[$sid])) {
                 $seasons[$sid] = [
                     'id'=> $sid,
-                    'start'=> $row['start'],
-                    'end'=> $row['finish'],
+                    'start'=> $row->start,
+                    'end'=> $row->finish,
                     'leagues'=> [],
                 ];
             }
             $seasons[$sid]['leagues'][] = [
-                'id'=> $row['league_id'],
-                'name' => $row['league_name'],
-                'logo'=> $row['league_logo'],
-                'level'=> $row['league_level'],
+                'id'=> $row->league_id,
+                'name' => $row->league_name,
+                'logo'=> $row->league_logo,
+                'level'=> $row->league_level,
+               
             ];
         }
         $seasons = array_values($seasons);
@@ -72,9 +77,11 @@ class ControlSeason extends BaseController
         $data = [
             'seasons'=> $pagedSeasons,
             'currentPage'=> $page,
-            'totalPages'=> ceil($total/ $perPage)
+            'totalPages'=> ceil($total/ $perPage), 
+            'navbar' => $this->navbar->findAll(),
+            'loggedIn' => $this->auth->loggedIn()
         ];
-        $data['navbar'] = $this->navbar->findAll();
+       
         return view("Seasons", $data);
     }
 }
