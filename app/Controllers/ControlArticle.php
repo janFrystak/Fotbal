@@ -27,39 +27,77 @@ class ControlArticle extends BaseController
 
         return view('Article', $data);
     }
-
-    public function edit($id){
-        $data['article'] = $this->article->find($id);
-        return view('EditArticle', $data);
+    public function loadCreate(){
+        $data = [
+            'navbar' => $this->navbar->findAll(),
+            'loggedIn' => $this->ionAuth->loggedIn(),
+        ];
+        return view('ArticleCreate', $data);
     }
 
-    public function update($id){
+    public function loadEdit($id){
+        $data = [
+            'article' => $this->article->find($id),
+            'navbar' => $this->navbar->findAll(),
+            'loggedIn' => $this->ionAuth->loggedIn(),
+        ];
+        return view('ArticleEdit', $data);
+    }
+
+    public function edit($id){
         $postData = $this->request->getPost();
-        $this->article->update($id, [
+        $file =$this->request->getFile('photo_file');
+        $data = [
             'title'=> $postData['title'],
             'text'=> $postData['text'],
             'top'=> $postData['top'],
             'published'=> $postData['published'],
-            'photo'=> $postData['photo'],
-        ]);
-        return redirect()->to('article/. $id');
+        ];
+
+        if ($file && $file->isValid() && !$file->hasMoved()) {
+            $name = $file->getClientName();
+            $file->move(FCPATH . 'assets/articles', $name);
+            $data['photo'] = $name;
+        }
+
+        $this->article->update($id, $data);
+
+        return redirect()->to('article/'. $id);
     }
 
-    public function delete($id){
+    public function remove($id){
         $this->article->where('id', $id)->delete();
         return redirect()->to('/');
     }
-    public function createArticle(){
-        $postData = $this->request->getPost();
-        $this->article->insert([
-            'title'=> $postData['title'],
-            'text'=> $postData['text'],
-            'top'=> $postData['top'],
-            'published'=> $postData['published'],
-            'photo'=> $postData['photo'],
-            'link'=> "article/".$postData['photo'],
-            'date'=> $postData['date'],
-        ], true);
-        return redirect()->to('/');
+    public function create() {
+    $postData = $this->request->getPost();
+    $name = null; // default if no file is uploaded
+
+    if ($file = $this->request->getFile('photo_file')) {
+        if ($file->isValid() && !$file->hasMoved()) {
+            $name = $file->getClientName(); // or use $file->getRandomName() for uniqueness
+            $file->move(FCPATH . 'assets/articles', $name);
+        }
+    }
+
+    $this->article->insert([
+        'title' => $postData['title'],
+        'text'=> $postData['text'],
+        'top'=> $postData['top'],
+        'published' => $postData['published'],
+        'photo'=> $name,
+        'date'=> $postData['date'],
+    ]);
+
+    return redirect()->to('/');
+}
+
+    public function loadOverview() {
+        $data = [
+            'navbar' => $this->navbar->findAll(),
+            'loggedIn' => $this->ionAuth->loggedIn(),
+            'articles'=> $this->article->findAll(),
+        ];
+        return view('ArticleOverview', $data);
     }
 }

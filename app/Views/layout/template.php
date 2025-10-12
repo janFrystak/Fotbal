@@ -10,7 +10,7 @@
     <body>
         
         
-        
+        <?php $trueEdit = true ;?>
         
         <nav class="navbar navbar-expand-lg navbar-dark bg-dark mb-4">
             <div class="container-fluid">
@@ -32,13 +32,12 @@
                                         <?= $nav->title ?> 
                                     </a>
                                     <div class="dropdown-menu dropdown-menu-end p-4" style="width: 300px;">
-                                    
-                                    <?php if($loggedIn): ?>
+                                    <!-- loggedIn -->
+                                    <?php if($trueEdit): ?>
                                         <form class="d-inline" method = "post" action="<?= base_url('logout') ?>">
                                             <button class="btn btn-danger w-100" type="submit">Logout</button>
                                         </form>
-                                            <button class="btn btn-primary w-100">Edit</button>
-
+                                            <a href="<?= base_url('article/overview') ?>" class="btn btn-primary w-100">Editace</a>
                                     <?php else: ?>
                                         <form method="post" action="<?= base_url('login')?>" class="d-inline">
                                             <div class="mb-3">
@@ -68,7 +67,7 @@
                                 </li>
                             <?php endif ?>
                         <?php endforeach; ?>
-                                        
+                            
                       
                     </ul>
                 </div>
