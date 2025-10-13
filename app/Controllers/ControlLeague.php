@@ -2,18 +2,17 @@
 
 namespace App\Controllers;
 use App\Models\Navbar;
+use IonAuth\Libraries\IonAuth;
 use App\Models\LeagueSeason;
 use App\Models\League;
 use App\Models\Game;
 use App\Controllers\BaseController;
-use IonAuth\Libraries\IonAuth;
+
 use App\Models\Season;
 
 class ControlLeague extends BaseController
 {
-    var $navbar;
     var $game;
-    var $ionAuth;
     var $leagueSeason;
     var $league;
     var $season;

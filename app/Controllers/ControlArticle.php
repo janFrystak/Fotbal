@@ -7,14 +7,10 @@ use App\Controllers\BaseController;
 use IonAuth\Libraries\IonAuth;
 class ControlArticle extends BaseController
 {
-    var $ionAuth;
-    var $navbar;
     var $article;
     public function initController($request, $response, $logger)
     {
         parent::initController($request, $response, $logger);
-        $this->navbar = new Navbar();
-        $this->ionAuth = new IonAuth();
         $this->article = new Article();
        
     }
@@ -66,7 +62,11 @@ class ControlArticle extends BaseController
     }
 
     public function remove($id){
-        $this->article->where('id', $id)->delete();
+        //$this->article->where('id', $id)->delete();
+        $data = [
+            'published' => 0
+        ];
+        $this->article->update($id, $data);
         return redirect()->to('/');
     }
     public function create() {

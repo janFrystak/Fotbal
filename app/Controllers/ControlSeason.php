@@ -14,11 +14,9 @@ use IonAuth\Libraries\IonAuth;
 
 class ControlSeason extends BaseController
 {
-    var $navbar;
     var $season;
     var $league;
     var $league_season;
-    var  $auth;
      public function initController($request, $response, $logger)
     {
         parent::initController($request, $response, $logger);
@@ -26,7 +24,7 @@ class ControlSeason extends BaseController
         $this->season = new Season();
         $this->league = new League();
         $this->league_season = new LeagueSeason();
-        $this->auth = new IonAuth();
+       
        
     }
     public function loadSeasons()
@@ -79,7 +77,7 @@ class ControlSeason extends BaseController
             'currentPage'=> $page,
             'totalPages'=> ceil($total/ $perPage), 
             'navbar' => $this->navbar->findAll(),
-            'loggedIn' => $this->auth->loggedIn()
+            'loggedIn' => $this->ionAuth->loggedIn()
         ];
        
         return view("Seasons", $data);

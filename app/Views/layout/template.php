@@ -32,7 +32,7 @@
                                         <?= $nav->title ?> 
                                     </a>
                                     <div class="dropdown-menu dropdown-menu-end p-4" style="width: 300px;">
-                                    <!-- loggedIn -->
+                                    <!--  loggedIn/ trueEdit -->
                                     <?php if($trueEdit): ?>
                                         <form class="d-inline" method = "post" action="<?= base_url('logout') ?>">
                                             <button class="btn btn-danger w-100" type="submit">Logout</button>

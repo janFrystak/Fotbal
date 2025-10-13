@@ -19,6 +19,8 @@ $routes->post('article/create','ControlArticle::create');
 $routes->get('article/loadCreate','ControlArticle::loadCreate');
 $routes->get('article/overview','ControlArticle::loadOverview');
 
+$routes->get('teams', 'ControlTeam::load');
+
 $routes->get('article/(:num)','ControlArticle::load/$1');
 $routes->get('league/(:num)/(:num)', 'ControlLeague::loadGames/$1/$2');
 $routes->get('seasons','ControlSeason::loadSeasons');

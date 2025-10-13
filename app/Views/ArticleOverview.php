@@ -55,14 +55,14 @@
             <td><?= mb_strimwidth($a->text, 0, 40, '...') ?></td>
             <td>
               <a href="<?= base_url('article/loadEdit/' . $a->id) ?>" class="btn btn-outline-primary btn-sm">
-                ✏ Edit
+                 Edit
               </a>
             </td>
             <td>
               <form action="<?= base_url('article/remove/' . $a->id) ?>" method="post" style="display:inline;">
                 <button type="submit" class="btn btn-outline-danger btn-sm" 
                         onclick="return confirm('Are you sure you want to remove this article?')">
-                  🗑 Remove
+                   Remove
                 </button>
               </form>
             </td>

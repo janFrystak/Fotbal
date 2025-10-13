@@ -8,6 +8,8 @@ use CodeIgniter\HTTP\IncomingRequest;
 use CodeIgniter\HTTP\RequestInterface;
 use CodeIgniter\HTTP\ResponseInterface;
 use Psr\Log\LoggerInterface;
+use App\Models\Navbar;
+use IonAuth\Libraries\IonAuth;
 
 /**
  * Class BaseController
@@ -47,6 +49,8 @@ abstract class BaseController extends Controller
      * @return void
      */
     var $session;
+    var $nabar;
+    var $ionAuth;
     public function initController(RequestInterface $request, ResponseInterface $response, LoggerInterface $logger)
     {
         // Do Not Edit This Line
@@ -55,5 +59,8 @@ abstract class BaseController extends Controller
         // Preload any models, libraries, etc, here.
 
         $this->session = service('session');
+        $this->navbar = new Navbar();
+        $this->ionAuth = new IonAuth();
+
     }
 }

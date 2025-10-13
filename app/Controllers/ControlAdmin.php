@@ -8,15 +8,12 @@ use IonAuth\Libraries\IonAuth;
 
 class ControlAdmin extends BaseController
 {
-    var $ionAuth;
-    var $navbar;
-    var $session;
+   
     public function initController($request, $response, $logger)
     {
         parent::initController($request, $response, $logger);
-        $this->navbar = new Navbar();
-        $this->ionAuth = new IonAuth();
-        $this->session = service("session");
+    
+    
        
     }
     public function login()
